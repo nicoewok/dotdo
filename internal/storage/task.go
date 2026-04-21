@@ -10,7 +10,6 @@ type Task struct {
 	Completed time.Time `json:"completed,omitempty"`
 }
 
-// This is the "List" type that was missing!
 type List struct {
 	Tasks []Task `json:"tasks"`
 }

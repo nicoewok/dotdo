@@ -15,17 +15,18 @@ var (
 func GetBunny() string {
 	// The new bunny! One eye is a %s for the red dot.
 	rawBunny := `
- (\ (\
-  \\_\\__,
-  /       \
- |   %s  .\
-  \      Y |
-  |      " /
-  /        |
-((         /
-  ` + "``" + `'-._>UU`
+    ⠏⢣ ⠏⢣
+  ⢠⡶⠧⠧⠶⠧⠧⠶⢶⡄
+  ⡜         ⢣
+ ⢸   ⠛   ⠛  ⢣
+  ⢣      Y  ⢸
+  ⢸      "  ⡜
+  ⡜        ⢸
+⠺⡜         ⡜
+  ⠙⠒⠤⣀⣀⣇⣸⣇⣸
+  
+ DOT %s DO`
 
-	// Style the red eye
 	redEye := lipgloss.NewStyle().Foreground(Red).Render("●")
 
 	// Style the body

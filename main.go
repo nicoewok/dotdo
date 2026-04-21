@@ -9,21 +9,12 @@ import (
 )
 
 func main() {
-	// 1. Clear terminal for that clean Nothing look (optional)
+	// Print header
 	fmt.Print("\033[H\033[2J")
-
-	// 2. Display the Bunny
 	fmt.Println(ui.GetBunny())
+	fmt.Println(lipgloss.NewStyle().Foreground(ui.Grey).Render(" bunny\n  ──────────────"))
 
-	title := lipgloss.NewStyle().
-		Foreground(ui.White).
-		Bold(true).
-		MarginLeft(2).
-		Render("D O T D O")
-	fmt.Println(title)
-	fmt.Println(lipgloss.NewStyle().Foreground(ui.Grey).Render("  ──────────────"))
-
-	// 3. Load and show tasks
+	// Load and show tasks
 	list, err := storage.LoadTasks()
 	if err != nil {
 		fmt.Println("Error loading tasks:", err)
