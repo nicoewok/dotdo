@@ -16,6 +16,7 @@ var (
 	WhiteStyle = lipgloss.NewStyle().Foreground(White).Bold(true)
 	RedStyle   = lipgloss.NewStyle().Foreground(Red)
 	GreyStyle  = lipgloss.NewStyle().Foreground(Grey)
+	GreenStyle = lipgloss.NewStyle().Foreground(Green)
 	DoneStyle  = lipgloss.NewStyle().Foreground(Grey).Strikethrough(true)
 )
 

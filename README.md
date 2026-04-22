@@ -48,7 +48,7 @@
 
 # Usage
 
-Initialize the local storage:
+Initialize the local storage and autocomplete (for Bash and ZSH only):
 ```bash
 mkdir ~/.dotdo
 dotdo init
@@ -69,7 +69,7 @@ git remote add origin [https://github.com/yourusername/.dotdo.git](https://githu
 
 - `dotdo help` — Show all commands.
 
-- `dotdo init` — Initilize the `tasks.json` file to start adding tasks.
+- `dotdo init` — Initilize the `tasks.json` file to start adding tasks. Add autocomplete to your bash/zsh configuration.
 
 - `dotdo add [task name] -d [date]` — Add a new task. The name does not need to be in "". Example:
 ```bash

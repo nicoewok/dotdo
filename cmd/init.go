@@ -1,10 +1,12 @@
 package cmd
 
 import (
+	"bufio"
 	"encoding/json"
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/nicoewok/dotdo/internal/storage"
 	"github.com/nicoewok/dotdo/internal/ui"
@@ -47,12 +49,60 @@ var initCmd = &cobra.Command{
 		}
 
 		// 3. Instruction for Git Sync
-		fmt.Println("\n" + ui.GreyStyle.Render(" NEXT STEPS:"))
+		fmt.Println("\n" + ui.GreyStyle.Render(" NEXT STEPS for Git Sync:"))
 		fmt.Println(" 1. cd ~/.dotdo")
 		fmt.Println(" 2. git init")
 		fmt.Println(" 3. git remote add origin <your-private-repo-url>")
-		fmt.Println(" 4. dotdo add \"Your first task\"")
+		fmt.Println(" 4. dotdo add \"Your first task\"\n")
+
+		setupAutocomplete()
+		fmt.Println("\n" + ui.GreenStyle.Render("Initialization complete!"))
 	},
+}
+
+func setupAutocomplete() {
+	shellPath := os.Getenv("SHELL")
+	var rcFile string
+	var shellType string
+
+	if strings.Contains(shellPath, "zsh") {
+		rcFile = filepath.Join(os.Getenv("HOME"), ".zshrc")
+		shellType = "zsh"
+	} else {
+		rcFile = filepath.Join(os.Getenv("HOME"), ".bashrc")
+		shellType = "bash"
+	}
+
+	// Check if we've already added it
+	f, err := os.Open(rcFile)
+	if err == nil {
+		scanner := bufio.NewScanner(f)
+		for scanner.Scan() {
+			if strings.Contains(scanner.Text(), "dotdo completion") {
+				fmt.Printf(" %s Autocomplete already configured in %s\n", ui.GreyStyle.Render("○"), rcFile)
+				f.Close()
+				return
+			}
+		}
+		f.Close()
+	}
+
+	// Append the source command
+	line := fmt.Sprintf("\nsource <(dotdo completion %s) # dotdo-completion\n", shellType)
+
+	f, err = os.OpenFile(rcFile, os.O_APPEND|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Printf(" %s Could not update %s: %v\n", ui.RedStyle.Render("●"), rcFile, err)
+		return
+	}
+	defer f.Close()
+
+	if _, err := f.WriteString(line); err != nil {
+		fmt.Printf(" %s Failed to write to %s\n", ui.RedStyle.Render("●"), rcFile)
+	} else {
+		fmt.Printf(" %s Autocomplete added to %s\n", ui.GetStatusDot("todo"), rcFile)
+		fmt.Println(ui.GreyStyle.Render("   Restart your terminal or run: source " + rcFile))
+	}
 }
 
 func init() {
