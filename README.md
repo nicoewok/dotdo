@@ -1,7 +1,7 @@
 # dotdo (Linux)
 > Minimalist, dot-matrix, focused.
 
-`dotdo` is a developer-centric CLI/TUI tool. It manages your tasks through a monochromatic interface, featuring the signature pixel Bunny mascot.
+`dotdo` is an open-source todo list CLI/TUI tool. It manages your tasks through a monochromatic interface, featuring a pixel Bunny mascot.
 
 ---
 
@@ -20,38 +20,17 @@
 
 # Install
 
-1. Ensure you have [Go](https://go.dev/doc/install) installed
-2. ```git clone``` this repository
-3. ```go install```
-4. Be sure your `go/bin` folder is added to your `PATH`:
-    
-    a. Get your go folder using
-    ```bash
-    go env GOPATH
-    ```
-    b. It should return something like `/home/yourname/go`. If you exedcuted 3. then in this path in `/bin` you should find an executable called `dotdo`
-    c. Edit your bash config:
-    ```bash
-    nano ~/.bashrc
-    ```
-    d. Go to the last line and paste this line:
-    ```bash
-    export PATH=$PATH:$GOPATH/bin
-    ```
-    where `$GOPATH` is the path you got from a. and b. so for example:
-    ```bash
-    export PATH=$PATH:/home/USERNAME/go/bin
-    ```
-    e. Save and exit: Ctrl+O -> Enter -> Ctrl+X
-    f. Reload your terminal!
+Go to the [Releases](https://www.google.com/search?q=https://github.com/nicoewok/dotdo/releases) page and download the latest `.deb` file, then run:
+```bash
+# Replace x.x.x with the version number
+sudo apt install ./dotdo_x.x.x_amd64.deb
+```
 
-
-# Usage
+## Usage
 
 Initialize the local storage and autocomplete (for Bash and ZSH only):
 ```bash
-mkdir ~/.dotdo
-dotdo init
+dotdo
 ```
 
 If you want to sync your data, **dotdo** uses a hidden Git repository in your home directory to sync tasks across devices automatically.
@@ -63,7 +42,7 @@ git init
 git remote add origin [https://github.com/yourusername/.dotdo.git](https://github.com/yourusername/.dotdo.git)
 ```
 
-## Commands
+### Commands
 
 - `dotdo` — Show all tasks not on done.
 
@@ -90,3 +69,32 @@ dotdo add Feed bunny -d 2026-01-01
 - `dotdo sync` — Pulls changes for `tasks.json` & pushes new changes.
 
 - `dotdo list` — Show all tasks. Even "done" ones.
+
+
+
+# Build yourself
+
+1. Ensure you have [Go](https://go.dev/doc/install) and [Git](https://git-scm.com/install/) installed
+2. ```git clone``` this repository
+3. ```go install```
+4. Be sure your `go/bin` folder is added to your `PATH`:
+    
+    a. Get your go folder using
+    ```bash
+    go env GOPATH
+    ```
+    b. It should return something like `/home/yourname/go`. If you exedcuted 3. then in this path in `/bin` you should find an executable called `dotdo`
+    c. Edit your bash config:
+    ```bash
+    nano ~/.bashrc
+    ```
+    d. Go to the last line and paste this line:
+    ```bash
+    export PATH=$PATH:$GOPATH/bin
+    ```
+    where `$GOPATH` is the path you got from a. and b. so for example:
+    ```bash
+    export PATH=$PATH:/home/USERNAME/go/bin
+    ```
+    e. Save and exit: Ctrl+O -> Enter -> Ctrl+X
+    f. Reload your terminal!
