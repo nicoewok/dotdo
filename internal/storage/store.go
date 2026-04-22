@@ -7,15 +7,8 @@ import (
 	"path/filepath"
 )
 
-func GetPath() string {
-	home, _ := os.UserHomeDir()
-	dir := filepath.Join(home, ".dotdo")
-	_ = os.MkdirAll(dir, 0755)
-	return filepath.Join(dir, "tasks.json")
-}
-
 func LoadTasks() (List, error) {
-	path := GetPath()
+	path := GetStoragePath()
 	var list List
 
 	if _, err := os.Stat(path); os.IsNotExist(err) {
@@ -32,7 +25,7 @@ func LoadTasks() (List, error) {
 }
 
 func SaveTasks(list List) error {
-	path := GetPath()
+	path := GetStoragePath()
 	data, _ := json.MarshalIndent(list, "", "  ")
 
 	err := os.WriteFile(path, data, 0644)
@@ -43,6 +36,13 @@ func SaveTasks(list List) error {
 	// Sync in the background so the CLI doesn't hang
 	go sync(filepath.Dir(path))
 	return nil
+}
+
+// internal/storage/task.go
+
+func GetStoragePath() string {
+	home, _ := os.UserHomeDir()
+	return filepath.Join(home, ".dotdo", "tasks.json")
 }
 
 func sync(repoPath string) {

@@ -13,7 +13,6 @@ var (
 )
 
 func GetBunny() string {
-	// The new bunny! One eye is a %s for the red dot.
 	rawBunny := `
     ⠏⢣ ⠏⢣
   ⢠⡶⠧⠧⠶⠧⠧⠶⢶⡄
@@ -25,12 +24,14 @@ func GetBunny() string {
 ⠺⡜         ⡜
   ⠙⠒⠤⣀⣀⣇⣸⣇⣸
   
- DOT %s DO`
+ DOT %s DO%s`
 
 	redEye := lipgloss.NewStyle().Foreground(Red).Render("●")
 
-	// Style the body
-	body := lipgloss.NewStyle().Foreground(White).Render(fmt.Sprintf(rawBunny, redEye))
+	// FIXED: Removed "ui." prefix because we are already in the ui package
+	bunnyText := lipgloss.NewStyle().Foreground(Grey).Render(" bunny\n  ──────────────")
 
-	return body
+	return lipgloss.NewStyle().
+		Foreground(White).
+		Render(fmt.Sprintf(rawBunny, redEye, bunnyText))
 }
