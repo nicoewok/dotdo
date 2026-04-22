@@ -1,6 +1,8 @@
 package storage
 
 import (
+	"encoding/json"
+	"os"
 	"slices"
 	"time"
 )
@@ -45,4 +47,22 @@ func (l *List) SortByDueDate() {
 		// Case 4: Neither has a due date - keep relative order
 		return 0
 	})
+}
+
+// EnsureInitialized checks for the storage folder and file, creating them if missing.
+func EnsureInitialized() {
+	dir := GetStorageDir()
+	path := GetStoragePath()
+
+	// Create directory (~/.dotdo) if missing
+	if _, err := os.Stat(dir); os.IsNotExist(err) {
+		_ = os.MkdirAll(dir, 0755)
+	}
+
+	// Create tasks.json if missing
+	if _, err := os.Stat(path); os.IsNotExist(err) {
+		empty := List{Tasks: []Task{}}
+		data, _ := json.MarshalIndent(empty, "", "  ")
+		_ = os.WriteFile(path, data, 0644)
+	}
 }

@@ -10,7 +10,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "dotdo",
-	Short: "Nothing-styled todo tool",
+	Short: "Dot-styled todo tool",
 
 	// Show bunny logo on every command
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
@@ -20,6 +20,9 @@ var rootCmd = &cobra.Command{
 		if cmd.HasParent() && cmd.Parent().Name() == "completion" {
 			return
 		}
+
+		// Ensure storage is initialized by attempting to load tasks (creates storage if needed).
+		storage.EnsureInitialized()
 
 		fmt.Print("\033[H\033[2J")
 

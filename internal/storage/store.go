@@ -8,6 +8,7 @@ import (
 )
 
 func LoadTasks() (List, error) {
+
 	path := GetStoragePath()
 	var list List
 
@@ -38,11 +39,13 @@ func SaveTasks(list List) error {
 	return nil
 }
 
-// internal/storage/task.go
+func GetStorageDir() string {
+	home, _ := os.UserHomeDir()
+	return filepath.Join(home, ".dotdo")
+}
 
 func GetStoragePath() string {
-	home, _ := os.UserHomeDir()
-	return filepath.Join(home, ".dotdo", "tasks.json")
+	return filepath.Join(GetStorageDir(), "tasks.json")
 }
 
 func sync(repoPath string) {
