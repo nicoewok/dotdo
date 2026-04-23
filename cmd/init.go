@@ -50,10 +50,10 @@ var initCmd = &cobra.Command{
 
 		// 3. Instruction for Git Sync
 		fmt.Println("\n" + ui.GreyStyle.Render(" NEXT STEPS for Git Sync:"))
-		fmt.Println(" 1. cd ~/.dotdo")
+		fmt.Println("Be sure you have a private Git repository for saving your tasks, Git installed on your system and are authenticated with your Git provider on your current CLI.")
+		fmt.Println(" 1. cd " + dotFolderPath)
 		fmt.Println(" 2. git init")
 		fmt.Println(" 3. git remote add origin <your-private-repo-url>")
-		fmt.Println(" 4. dotdo add \"Your first task\"\n")
 
 		setupAutocomplete()
 		fmt.Println("\n" + ui.GreenStyle.Render("Initialization complete!"))

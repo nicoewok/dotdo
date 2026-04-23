@@ -5,7 +5,7 @@
 
 ---
 
-## The Mascot
+## Bunny
 ```text
     ⠏⢣ ⠏⢣
   ⢠⡶⠧⠧⠶⠧⠧⠶⢶⡄
@@ -16,11 +16,12 @@
   ⡜        ⢸
 ⠺⡜         ⡜
   ⠙⠒⠤⣀⣀⣇⣸⣇⣸
+ DOT ● DO bunny  
 ```
 
 # Install
 
-Go to the [Releases](https://www.google.com/search?q=https://github.com/nicoewok/dotdo/releases) page and download the latest `.deb` file, then run:
+Go to the [Releases](https://github.com/nicoewok/dotdo/releases) page and download the latest `.deb` file, then run:
 ```bash
 # Replace x.x.x with the version number
 sudo apt install ./dotdo_x.x.x_amd64.deb
@@ -28,19 +29,21 @@ sudo apt install ./dotdo_x.x.x_amd64.deb
 
 ## Usage
 
-Initialize the local storage and autocomplete (for Bash and ZSH only):
+Initialize the local storage and autocomplete:
 ```bash
-dotdo
+dotdo init
 ```
 
-If you want to sync your data, **dotdo** uses a hidden Git repository in your home directory to sync tasks across devices automatically.
+If you want to sync your data, **dotdo** uses a private Git repository in your home directory to sync tasks across devices automatically.
+1. Create a private repository (I named it `.dotdo`)
+2. Be sure you have [Git](https://git-scm.com/install/) installed
+3. Make sure you are authenticated for Github on your CLI using an [Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token)
+> To make sure your CLI remembers this token the next time, be sure to execute this before logging in to git:
+    ```
+    git config --global credential.helper store
+    ```
 
-```bash
-cd ~/.dotdo
-git init
-# Link to a private GitHub repo
-git remote add origin [https://github.com/yourusername/.dotdo.git](https://github.com/yourusername/.dotdo.git)
-```
+Now follow the instructions displayed during ```dotdo init``` and you are good to use the following commands:
 
 ### Commands
 
