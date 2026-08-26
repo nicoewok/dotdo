@@ -2,6 +2,7 @@
 > Minimalist, dot-matrix, focused.
 
 `dotdo` is an open-source todo list CLI/TUI tool. It manages your tasks through a monochromatic interface, featuring a pixel Bunny mascot.
+There is a [windows desktop app](https://github.com/nicoewok/dotdo-win.git) and [android app](https://github.com/nicoewok/dotdo-android.git) as well.
 
 ---
 
@@ -47,13 +48,13 @@ Now follow the instructions displayed during ```dotdo init``` and you are good t
 
 ### Commands
 
-- `dotdo` — Show all tasks not on done.
+- `dotdo` — Show pending tasks. Use `-d`/`--done` to show completed tasks as well.
 
 - `dotdo help` — Show all commands.
 
 - `dotdo init` — Initilize the `tasks.json` file to start adding tasks. Add autocomplete to your bash/zsh configuration.
 
-- `dotdo add [task name] -d [date]` — Add a new task. The name does not need to be in "". Example:
+- `dotdo add [task name] -d [date]` — Add a new task. The name does not need to be in "". The due date is optional. Example:
 ```bash
 dotdo add Feed bunny
 ```
@@ -63,15 +64,15 @@ dotdo add Feed bunny -d 2026-01-01
 ```
 
 
-- `dotdo doing [task name]` — Mark task as "currently doing". This command has auto-complete for the task name.
+- `dotdo doing [task name / number]` — Mark task as "currently doing". Accepts task title or number (e.g. `dotdo doing 3.` or `dotdo doing 3`). This command has auto-complete.
 
-- `dotdo done [task name]` — Mark task as "done". This command has auto-complete for the task name.
+- `dotdo done [task name / number]` — Mark task as "done". Accepts task title or number (e.g. `dotdo done 3.` or `dotdo done 3`). This command has auto-complete.
 
 - `dotdo remove` — Deletes all "done" tasks to clean up `tasks.json`.
 
 - `dotdo sync` — Pulls changes for `tasks.json` & pushes new changes.
 
-- `dotdo list` — Show all tasks. Even "done" ones.
+- `dotdo list` — Show tasks. Use `-d` or `--done` to include completed tasks.
 
 
 

@@ -47,7 +47,7 @@ var addCmd = &cobra.Command{
 		}
 
 		newTask := storage.Task{
-			ID:     len(list.Tasks) + 1,
+			ID:     list.NextID(),
 			Title:  taskName,
 			Status: "todo",
 			Due:    dueDate,

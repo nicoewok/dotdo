@@ -25,11 +25,18 @@ func LoadTasks() (List, error) {
 	return list, err
 }
 
+func SaveTasksWithoutSync(list List) error {
+	path := GetStoragePath()
+	data, err := json.MarshalIndent(list, "", "  ")
+	if err != nil {
+		return err
+	}
+	return os.WriteFile(path, data, 0644)
+}
+
 func SaveTasks(list List) error {
 	path := GetStoragePath()
-	data, _ := json.MarshalIndent(list, "", "  ")
-
-	err := os.WriteFile(path, data, 0644)
+	err := SaveTasksWithoutSync(list)
 	if err != nil {
 		return err
 	}

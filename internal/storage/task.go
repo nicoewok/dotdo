@@ -49,6 +49,43 @@ func (l *List) SortByDueDate() {
 	})
 }
 
+// NextID returns the next highest available ID for a new task.
+func (l *List) NextID() int {
+	maxID := 0
+	for _, t := range l.Tasks {
+		if t.ID > maxID {
+			maxID = t.ID
+		}
+	}
+	return maxID + 1
+}
+
+// ResolveDuplicateIDs ensures all tasks have unique, positive IDs.
+// If duplicate IDs exist, duplicates are transformed into the next highest number among all tasks.
+// Returns true if any task ID was modified.
+func (l *List) ResolveDuplicateIDs() bool {
+	maxID := 0
+	for _, t := range l.Tasks {
+		if t.ID > maxID {
+			maxID = t.ID
+		}
+	}
+
+	seen := make(map[int]bool)
+	modified := false
+
+	for i := range l.Tasks {
+		if l.Tasks[i].ID <= 0 || seen[l.Tasks[i].ID] {
+			maxID++
+			l.Tasks[i].ID = maxID
+			modified = true
+		}
+		seen[l.Tasks[i].ID] = true
+	}
+
+	return modified
+}
+
 // EnsureInitialized checks for the storage folder and file, creating them if missing.
 func EnsureInitialized() {
 	dir := GetStorageDir()

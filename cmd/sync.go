@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
+	"github.com/nicoewok/dotdo/internal/storage"
 	"github.com/nicoewok/dotdo/internal/ui"
 	"github.com/spf13/cobra"
 )
@@ -45,6 +46,15 @@ var syncCmd = &cobra.Command{
 			fmt.Printf(" %s Pull failed (Conflict?): %v\n", ui.RedStyle.Render("●"), err)
 			fmt.Println(ui.GreyStyle.Render("   Manual fix required: cd ~/.dotdo && git rebase --continue"))
 			return
+		}
+
+		// Check for duplicate IDs and resolve them if needed
+		list, err := storage.LoadTasks()
+		if err == nil && list.ResolveDuplicateIDs() {
+			if saveErr := storage.SaveTasksWithoutSync(list); saveErr == nil {
+				_ = runGit(dotFolderPath, "add", "tasks.json")
+				_ = runGit(dotFolderPath, "commit", "-m", "dotdo: resolve duplicate task ids")
+			}
 		}
 
 		// 4. Push everything back to the server
